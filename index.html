@@ -1,9 +1,10 @@
+$h = @'
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Registro de Capacitación</title
+<title>Registro de Capacitación</title>
 <style>
 :root{--p:#141414;--a:#d32f2f;--b:#d0d0d0;--bg:#f8f8f8}
 body{font-family:Arial,sans-serif;background:#e5e5e5;margin:0;padding:15px;color:#222}
@@ -30,7 +31,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 .ok{background:#e6f4ea;border:1px solid #34a853;color:#137333;text-align:center;padding:10px;border-radius:4px;margin-bottom:10px}
 .fn{font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:8px}
 .hd{display:none!important}
-#qrcode{display:flex;justify-content:center;margin:15px 0}
+#qrcode img{margin:15px auto;display:block;border:6px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 @media print{body{background:#fff;padding:0}.c{box-shadow:none;border:none;padding:0}.np{display:none!important}}
 </style>
 </head>
@@ -52,7 +53,6 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <button type="button" class="btn" onclick="goW()">Probar formulario como trabajador</button>
 </div>
 </div>
-
 <div id="v2" class="hd">
 <div class="h"><img id="lp2" class="lp hd" src=""><h1 id="we">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
 <div class="st">Antecedentes de la Actividad</div>
@@ -68,7 +68,6 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <div class="sb"><canvas id="cv"></canvas><button type="button" class="btn btn-s" onclick="clF()">Borrar Firma</button></div>
 <button type="button" class="btn" onclick="finR()">Completar y Generar Comprobante</button>
 </div>
-
 <div id="v3" class="hd">
 <div style="background:#fff;padding:15px;border-top:5px solid var(--a)">
 <div class="h"><img id="lp3" class="lp hd" src=""><h1 id="re">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
@@ -87,73 +86,11 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <button type="button" class="btn btn-g np" onclick="window.print()">Guardar Comprobante / PDF para WhatsApp</button>
 </div>
 </div>
-<script src="https://unpkg.com"></script>
 <script>
 var d={},u="",lg="",cv,cx,dr=false,tf=false;
 document.getElementById('f1').valueAsDate=new Date();
-function upL(e){
-  var f=e.target.files.item(0);if(!f)return;
-  var r=new FileReader();
-  r.onload=function(ev){
-    var im=new Image();
-    im.onload=function(){
-      var c=document.createElement('canvas'),w=90,s=w/im.width;
-      c.width=w;c.height=Math.round(im.height*s);
-      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-      lg=c.toDataURL('image/jpeg',0.55);
-      var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');
-    };im.src=ev.target.result;
-  };r.readAsDataURL(f);
-}
-window.onload=function(){
-  var p=new URLSearchParams(window.location.search);
-  if(p.has('d')){
-    try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}
-    catch(e){alert("Enlace inválido");}
-  }
-};
-function genQR(){
-  d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};
-  var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));
-  u=window.location.href.split('?').shift()+"?d="+enc;
-  document.getElementById('lnk').value=u;
-  var q=document.getElementById('qrcode');q.innerHTML="";
-  new QRCode(q,{text:u,width:200,height:200,colorDark:"#141414",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.L});
-  document.getElementById('qrBox').classList.remove('hd');
-  }function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}function goW(){window.location.href=u;}
-  function shW(){
-  document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');
-  if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}
-  document.getElementById('we').innerText=d.e;document.getElementById('wa').innerText=d.a;
-  document.getElementById('wt').innerText=d.t;document.getElementById('wf').innerText=d.f;document.getElementById('wr').innerText=d.r;
-  cv=document.getElementById('cv');cx=cv.getContext('2d');
-  var rc=cv.getBoundingClientRect();cv.width=rc.width;cv.height=rc.height;
-  cx.lineWidth=2;cx.lineCap='round';cx.strokeStyle='#141414';
-  cv.onmousedown=function(e){dr=true;tf=true;cx.beginPath();cx.moveTo(e.offsetX,e.offsetY);};
-  cv.onmousemove=function(e){if(dr){cx.lineTo(e.offsetX,e.offsetY);cx.stroke();}};
-  cv.onmouseup=function(){dr=false;};
-  cv.ontouchstart=function(e){e.preventDefault();var t=e.touches.item(0),rc=cv.getBoundingClientRect();dr=true;tf=true;cx.beginPath();cx.moveTo(t.clientX-rc.left,t.clientY-rc.top);};
-  cv.ontouchmove=function(e){e.preventDefault();if(!dr)return;var t=e.touches.item(0),rc=cv.getBoundingClientRect();cx.lineTo(t.clientX-rc.left,t.clientY-rc.top);cx.stroke();};
-  cv.ontouchend=function(){dr=false;};
-}
-function clF(){cx.clearRect(0,0,cv.width,cv.height);tf=false;}
-function finR(){
-  var n=document.getElementById('tn').value.trim(),r=document.getElementById('tr').value.trim(),c=document.getElementById('tc').value.trim(),ins=document.getElementById('ti').value.trim(),x=document.getElementById('tx').value.trim(),s=document.getElementById('ts').value;
-  if(!n||!r||!c||!ins||!x){alert("Completa todos los campos obligatorios.");return;}
-  if(!tf){alert("Dibuja tu firma antes de continuar.");return;}
-  var ah=new Date(),fs=ah.toISOString().slice(0,10).replace(/-/g,''),rd=Math.floor(100000+Math.random()*900000);
-  if(d.l){var i=document.getElementById('lp3');i.src=d.l;i.classList.remove('hd');}
-  document.getElementById('re').innerText=d.e;document.getElementById('rf').innerText="REGISTRO DIGITAL - SST-"+fs+"-"+rd;
-  document.getElementById('ra').innerText=d.a;document.getElementById('rt').innerText=d.t;document.getElementById('rf2').innerText=d.f;document.getElementById('rr').innerText=d.r;
-  document.getElementById('rn').innerText=n;document.getElementById('rrut').innerText=r;document.getElementById('rc').innerText=c;document.getElementById('rs').innerText=s;document.getElementById('ri').innerText=ins;document.getElementById('rx').innerText=x;
-  document.getElementById('rfImg').src=cv.toDataURL();document.getElementById('rfNom').innerText=n;
-  document.getElementById('rts').innerHTML="Registro generado: "+ah.toLocaleString('es-CL')+"<br>Respaldo listo para guardar o compartir por WhatsApp.";
-  document.getElementById('v2').classList.add('hd');document.getElementById('v3').classList.remove('hd');
-}
-</script>
-</body>
-</html>
-}
+function upL(e){var f=e.target.files.item(0);if(!f)return;var r=new FileReader();r.onload=function(ev){var im=new Image();im.onload=function(){var c=document.createElement('canvas'),w=80,s=w/im.width;c.width=w;c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);lg=c.toDataURL('image/jpeg',0.5);var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');};im.src=ev.target.result;};r.readAsDataURL(f);}
+window.onload=function(){var p=new URLSearchParams(window.location.search);if(p.has('d')){try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}catch(e){alert("Enlace inválido");}}};
+function genQR(){d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));u=window.location.href.split('?').shift()+"?d="+enc;document.getElementById('lnk').value=u;var sv="https://api.qrserver"+String.fromCharCode(46,99)+"om/v1/create-qr-code/";document.getElementById('qrcode').innerHTML='<img src="'+sv+'?size=220x220&color=141414&data='+encodeURIComponent(u)+'">';document.getElementById('qrBox').classList.remove('hd');}
 function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
 function goW(){window.location.href=u;}
-function shW(){
