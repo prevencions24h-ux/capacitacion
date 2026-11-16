@@ -1,289 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Difusión y Toma de Conocimiento</title>
-    <style>
-        :root {
-            --primary: #141414;
-            --accent: #d32f2f;
-            --accent-hover: #b71c1c;
-            --light-bg: #f8f8f8;
-            --border: #d0d0d0;
-            --success-bg: #e6f4ea;
-            --success-border: #34a853;
-            --success-text: #137333;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e5e5e5;
-            margin: 0;
-            padding: 15px;
-            color: #222;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            border-top: 6px solid var(--accent);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-        .logo-preview {
-            max-height: 75px;
-            max-width: 220px;
-            margin: 0 auto 8px;
-            display: block;
-            object-fit: contain;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-        }
-        .header p {
-            margin: 5px 0 0;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .folio-bar {
-            background-color: var(--primary);
-            border-left: 5px solid var(--accent);
-            color: white;
-            padding: 7px 12px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-radius: 3px;
-        }
-        .section-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 4px;
-            margin: 18px 0 10px;
-            text-transform: uppercase;
-        }
-        .form-group {
-            margin-bottom: 12px;
-        }
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #222;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 13px;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .btn {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .btn:hover { background-color: var(--accent-hover); }
-        .btn-dark {
-            background-color: var(--primary);
-            color: white;
-        }
-        .btn-secondary {
-            background-color: #555;
-            margin-top: 5px;
-            padding: 8px;
-            font-size: 12px;
-        }
-        .btn-success {
-            background-color: #25D366;
-            color: white;
-        }
-        .logo-upload-box {
-            border: 1px dashed var(--accent);
-            background-color: var(--light-bg);
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .signature-box {
-            border: 1px solid var(--border);
-            background-color: #fafafa;
-            border-radius: 4px;
-            text-align: center;
-            padding: 5px;
-        }
-        canvas#sig-canvas {
-            border-bottom: 1px solid #999;
-            touch-action: none;
-            width: 100%;
-            height: 150px;
-            cursor: crosshair;
-        }
-        table.doc-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        table.doc-table td {
-            border: 1px solid var(--border);
-            padding: 6px 8px;
-            vertical-align: top;
-        }
-        table.doc-table td.label-col {
-            background-color: var(--light-bg);
-            font-weight: bold;
-            width: 30%;
-            color: var(--primary);
-        }
-        .declaracion-box {
-            background-color: var(--light-bg);
-            border-left: 3px solid var(--accent);
-            border-top: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 10px;
-            font-size: 11px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-        .firma-final-box {
-            border: 1px solid var(--border);
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .firma-final-box img {
-            max-height: 110px;
-            display: block;
-            margin: 0 auto 5px;
-        }
-        .status-banner {
-            background-color: var(--success-bg);
-            border: 1px solid var(--success-border);
-            color: var(--success-text);
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .status-banner strong { display: block; font-size: 13px; }
-        .status-banner span { font-size: 11px; }
-        .footer-note {
-            font-size: 10px;
-            color: #666;
-            border-top: 1px solid #ddd;
-            padding-top: 8px;
-        }
-        .hidden { display: none !important; }
-        #qrcode img {
-            margin: 15px auto;
-            display: block;
-            border: 6px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        @media print {
-            body { background: #fff; padding: 0; }
-            .container { box-shadow: none; border-top: none; padding: 0; }
-            .no-print { display: none !important; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro de Capacitación</title>
+<script src="https://cloudflare.com"></script>
+<style>
+:root{--p:#141414;--a:#d32f2f;--b:#d0d0d0;--bg:#f8f8f8}
+body{font-family:Arial,sans-serif;background:#e5e5e5;margin:0;padding:15px;color:#222}
+.c{max-width:700px;margin:auto;background:#fff;padding:25px;border-radius:8px;border-top:6px solid var(--a);box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.h{text-align:center;border-bottom:2px solid var(--p);padding-bottom:12px;margin-bottom:15px}
+.lp{max-height:75px;max-width:220px;margin:0 auto 8px;display:block;object-fit:contain}
+.h h1{margin:0;font-size:20px;color:var(--p)}.h p{margin:5px 0 0;font-size:13px;font-weight:bold;color:var(--a)}
+.fb{background:var(--p);border-left:5px solid var(--a);color:#fff;padding:7px 12px;font-size:12px;font-weight:bold;margin-bottom:15px;border-radius:3px}
+.st{font-size:13px;font-weight:bold;color:var(--p);border-bottom:2px solid var(--a);padding-bottom:4px;margin:18px 0 10px;text-transform:uppercase}
+.fg{margin-bottom:12px}label{display:block;font-size:12px;font-weight:bold;margin-bottom:4px}
+input,textarea,select{width:100%;padding:8px;border:1px solid var(--b);border-radius:4px;box-sizing:border-box;font-size:13px;font-family:inherit}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--a);color:#fff;border:none;padding:12px;font-size:14px;font-weight:bold;border-radius:5px;cursor:pointer;width:100%;margin-top:10px}
+.btn-d{background:var(--p)}.btn-s{background:#555;width:auto;padding:4px 12px;font-size:12px}.btn-g{background:#25D366}
+.ub{border:1px dashed var(--a);background:var(--bg);padding:10px;border-radius:5px;text-align:center}
+.sb{border:1px solid var(--b);background:#fafafa;border-radius:4px;text-align:center;padding:5px}
+canvas{border-bottom:1px solid #999;touch-action:none;width:100%;height:150px;cursor:crosshair}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
+td{border:1px solid var(--b);padding:6px 8px;vertical-align:top}
+td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
+.db{background:var(--bg);border:1px solid var(--b);border-left:3px solid var(--a);padding:10px;font-size:11px;line-height:1.4;margin-bottom:15px}
+.ffb{border:1px solid var(--b);padding:10px;text-align:center;margin-bottom:15px}
+.ffb img{max-height:110px;display:block;margin:0 auto 5px}
+.ok{background:#e6f4ea;border:1px solid #34a853;color:#137333;text-align:center;padding:10px;border-radius:4px;margin-bottom:10px}
+.fn{font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.hd{display:none!important}
+#qrcode{display:flex;justify-content:center;margin:15px 0}
+@media print{body{background:#fff;padding:0}.c{box-shadow:none;border:none;padding:0}.np{display:none!important}}
+</style>
 </head>
 <body>
+<div class="c">
+<div id="v1">
+<div class="h"><img id="lp1" class="lp hd" src=""><h1>CONFIGURAR CAPACITACIÓN</h1><p>Completa los antecedentes para generar el enlace y código QR</p></div>
+<div class="fg"><label>Logo de tu Empresa (Cargar desde galería)</label><div class="ub"><input type="file" accept="image/*" onchange="upL(event)"><small style="color:#666;display:block;margin-top:4px">Formatos PNG o JPG.</small></div></div>
+<div class="fg"><label>Nombre de tu Empresa (Encabezado)</label><input type="text" id="e1" placeholder="Ej: Seguridad 24 Horas"></div>
+<div class="fg"><label>Actividad / Documento</label><input type="text" id="a1" placeholder="Ej: Primeros Auxilios"></div>
+<div class="fg"><label>Temas a tratar</label><textarea id="t1" rows="4" placeholder="1.- Lineamientos&#10;2.- Medidas preventivas"></textarea></div>
+<div class="g2"><div class="fg"><label>Fecha</label><input type="date" id="f1"></div><div class="fg"><label>Relator</label><input type="text" id="r1" placeholder="Ej: Camila Henríquez"></div></div>
+<button type="button" class="btn" onclick="genQR()">Generar Enlace y Código QR</button>
+<div id="qrBox" class="hd" style="margin-top:20px;text-align:center;border-top:2px solid var(--p);padding-top:15px">
+<p style="font-size:13px;font-weight:bold">Comparte este código QR o enlace con tus trabajadores:</p>
+<div id="qrcode"></div>
+<input type="text" id="lnk" readonly style="text-align:center;background:#f8f9fa;margin-bottom:10px">
+<button type="button" class="btn btn-d" onclick="cpL()">Copiar Enlace</button>
+<button type="button" class="btn" onclick="goW()">Probar formulario como trabajador</button>
+</div>
+</div>
 
-<div class="container">
-    <div id="view-setup">
-        <div class="header">
-            <img id="setup-logo-preview" class="logo-preview hidden" src="" alt="Logo Empresa">
-            <h1>CONFIGURAR CAPACITACIÓN</h1>
-            <p>Completa los antecedentes para generar el enlace y código QR</p>
-        </div>
+<div id="v2" class="hd">
+<div class="h"><img id="lp2" class="lp hd" src=""><h1 id="we">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
+<div class="st">Antecedentes de la Actividad</div>
+<table><tr><td class="lc">Actividad / Documento</td><td id="wa"></td></tr><tr><td class="lc">Temas a tratar</td><td id="wt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="wf"></td></tr><tr><td class="lc">Relator</td><td id="wr"></td></tr></table>
+<div class="st">Datos del Trabajador</div>
+<div class="fg"><label>Nombre Completo *</label><input type="text" id="tn" placeholder="Ej: Juan Pérez González"></div>
+<div class="g2"><div class="fg"><label>RUT *</label><input type="text" id="tr" placeholder="Ej: 18.213.351-9"></div><div class="fg"><label>Sexo</label><select id="ts"><option>Hombre</option><option>Mujer</option><option>Otro</option></select></div></div>
+<div class="g2"><div class="fg"><label>Cargo *</label><input type="text" id="tc" placeholder="Ej: Guardia de Seguridad"></div><div class="fg"><label>Instalación *</label><input type="text" id="ti" placeholder="Ej: Instalación Central"></div></div>
+<div class="fg"><label>Contacto (Correo o Teléfono) *</label><input type="text" id="tx" placeholder="Ej: correo@empresa.cl"></div>
+<div class="st">Declaración y Firma</div>
+<div class="db">El trabajador declara haber recibido y comprendido la información entregada durante la capacitación, comprometiéndose a aplicar las medidas preventivas y de seguridad indicadas.</div>
+<label>Dibuja tu firma en el recuadro *</label>
+<div class="sb"><canvas id="cv"></canvas><button type="button" class="btn btn-s" onclick="clF()">Borrar Firma</button></div>
+<button type="button" class="btn" onclick="finR()">Completar y Generar Comprobante</button>
+</div>
 
-        <div class="form-group">
-            <label>Logo de tu Empresa (Cargar desde galería del computador)</label>
-            <div class="logo-upload-box">
-                <input type="file" id="setup-logo-input" accept="image/*" onchange="procesarLogo(event)">
-                <small style="color: #666; display: block; margin-top: 4px;">Formatos PNG o JPG.</small>
-            </div>
-        </div>
+<div id="v3" class="hd">
+<div style="background:#fff;padding:15px;border-top:5px solid var(--a)">
+<div class="h"><img id="lp3" class="lp hd" src=""><h1 id="re">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
+<div class="fb" id="rf">REGISTRO DIGITAL - SST-000000</div>
+<div class="st">Antecedentes</div>
+<table><tr><td class="lc">Actividad / Documento</td><td id="ra"></td></tr><tr><td class="lc">Temas a tratar</td><td id="rt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="rf2"></td></tr><tr><td class="lc">Relator</td><td id="rr"></td></tr></table>
+<div class="st">Datos del Trabajador</div>
+<table><tr><td class="lc">Nombre</td><td id="rn"></td><td class="lc" style="width:15%">RUT</td><td id="rrut"></td></tr><tr><td class="lc">Cargo</td><td id="rc"></td><td class="lc">Sexo</td><td id="rs"></td></tr><tr><td class="lc">Instalación</td><td id="ri"></td><td class="lc">Contacto</td><td id="rx"></td></tr></table>
+<div class="st">Declaración</div>
+<div class="db">El trabajador declara haber recibido y comprendido la información entregada durante la capacitación, comprometiéndose a aplicar las medidas preventivas y de seguridad indicadas.</div>
+<div class="st">Respaldo y Firma</div>
+<div class="ffb"><div style="font-size:11px;color:#555;text-align:left;margin-bottom:5px">Firma trabajador</div><img id="rfImg" src=""><div id="rfNom" style="font-size:12px;font-weight:bold;border-top:1px solid #999;display:inline-block;padding-top:4px;min-width:200px"></div></div>
+<div class="ok"><strong style="display:block;font-size:13px">REGISTRO COMPLETADO</strong><span style="font-size:11px">Código único y firma digital incorporados.</span></div>
+<div class="fn" id="rts"></div>
+</div>
+<button type="button" class="btn btn-g np" onclick="window.print()">Guardar Comprobante / PDF para WhatsApp</button>
+</div>
+</div>
 
-        <div class="form-group">
-            <label>Nombre de tu Empresa (Encabezado)</label>
-            <input type="text" id="setup-empresa-titulo" placeholder="Ej: Seguridad 24 Horas">
-        </div>
-        <div class="form-group">
-            <label>Actividad / Documento</label>
-            <input type="text" id="setup-actividad" placeholder="Ej: Primeros Auxilios">
-        </div>
-        <div class="form-group">
-            <label>Temas a tratar</label>
-            <textarea id="setup-temas" rows="4" placeholder="1.- Cómo reaccionar frente a una emergencia&#10;2.- Números de emergencia"></textarea>
-        </div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" id="setup-fecha">
-            </div>
-            <div class="form-group">
-                <label>Relator</label>
-                <input type="text" id="setup-relator" placeholder="Ej: Camila Henríquez">
-            </div>
-        </div>
-
-        <button type="button" class="btn" onclick="generarEnlaceQR()">Generar Enlace y Código QR</button>
-
-        <div id="qr-result" class="hidden" style="margin-top: 20px; text-align: center; border-top: 2px solid var(--primary); padding-top: 15px;">
-            <p style="font-size: 13px; font-weight: bold; color: var(--primary);">Comparte este código QR o enlace con tus trabajadores:</p>
-            <div id="qrcode"></div>
-            <input type="text" id="share-link" readonly style="text-align: center; background: #f8f9fa; margin-bottom: 10px;">
-            <button type="button" class="btn btn-dark" onclick="copiarEnlace()">Copiar Enlace</button>
-            <button type="button" class="btn" onclick="abrirVistaTrabajador()">Probar formulario como trabajador</button>
-        </div>
-    </div>
-
-    <div id="view-worker" class="hidden">
-        <div class="header">
-            <img id="w-logo-img" class="logo-preview hidden" src="" alt="Logo Empresa">
-            <h1 id="w-titulo-empresa">EMPRESA</h1>
-            <p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p>
-        </div>
-
-        <div class="section-title">Antecedentes de la Actividad</div>
-        <table class="doc-table">
-            <tr><td class="label-col">Actividad / Documento</td><td id="w-actividad"></td></tr>
-            <tr><td class="label-col">Temas a tratar</td><td id="w-temas" style="white-space: pre-line;"></td></tr>
-            <tr><td class="label-col">Fecha</td><td id="w-fecha"></td></tr>
-            <tr><td class="label-col">Relator</td><td id="w-relator"></td></tr>
-        </table>
+<script>
+var d={},u="",lg="",cv,cx,dr=false,tf=false;
+document.getElementById('f1').valueAsDate=new Date();
+function upL(e){
+  var f=e.target.files.item(0);if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var im=new Image();
+    im.onload=function(){
+      var c=document.createElement('canvas'),w=90,s=w/im.width;
+      c.width=w;c.height=Math.round(im.height*s);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      lg=c.toDataURL('image/jpeg',0.55);
+      var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');
+    };im.src=ev.target.result;
+  };r.readAsDataURL(f);
+}
+window.onload=function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.has('d')){
+    try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}
+    catch(e){alert("Enlace inválido");}
+  }
+};
+function genQR(){
+  d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};
+  var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));
+  u=window.location.href.split('?').shift()+"?d="+enc;
+  document.getElementById('lnk').value=u;
+  var q=document.getElementById('qrcode');q.innerHTML="";
+  new QRCode(q,{text:u,width:200,height:200,colorDark:"#141414",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.L});
+  document.getElementById('qrBox').classList.remove('hd');
+}
+function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
+function goW(){window.location.href=u;}
+function shW(){
