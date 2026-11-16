@@ -1,290 +1,201 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Difusión y Toma de Conocimiento</title>
-    <style>
-        :root {
-            --primary: #141414;
-            --accent: #d32f2f;
-            --accent-hover: #b71c1c;
-            --light-bg: #f8f8f8;
-            --border: #d0d0d0;
-            --success-bg: #e6f4ea;
-            --success-border: #34a853;
-            --success-text: #137333;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e5e5e5;
-            margin: 0;
-            padding: 15px;
-            color: #222;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            border-top: 6px solid var(--accent);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 12px;
-            margin-bottom: 15px;
-        }
-        .logo-preview {
-            max-height: 75px;
-            max-width: 220px;
-            margin: 0 auto 8px;
-            display: block;
-            object-fit: contain;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-        }
-        .header p {
-            margin: 5px 0 0;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .folio-bar {
-            background-color: var(--primary);
-            border-left: 5px solid var(--accent);
-            color: white;
-            padding: 7px 12px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-radius: 3px;
-        }
-        .section-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 4px;
-            margin: 18px 0 10px;
-            text-transform: uppercase;
-        }
-        .form-group {
-            margin-bottom: 12px;
-        }
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 4px;
-            color: #222;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 13px;
-            font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .btn {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .btn:hover { background-color: var(--accent-hover); }
-        .btn-dark {
-            background-color: var(--primary);
-            color: white;
-        }
-        .btn-secondary {
-            background-color: #555;
-            margin-top: 5px;
-            padding: 8px;
-            font-size: 12px;
-        }
-        .btn-success {
-            background-color: #25D366;
-            color: white;
-        }
-        .logo-upload-box {
-            border: 1px dashed var(--accent);
-            background-color: var(--light-bg);
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .signature-box {
-            border: 1px solid var(--border);
-            background-color: #fafafa;
-            border-radius: 4px;
-            text-align: center;
-            padding: 5px;
-        }
-        canvas#sig-canvas {
-            border-bottom: 1px solid #999;
-            touch-action: none;
-            width: 100%;
-            height: 150px;
-            cursor: crosshair;
-        }
-        table.doc-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        table.doc-table td {
-            border: 1px solid var(--border);
-            padding: 6px 8px;
-            vertical-align: top;
-        }
-        table.doc-table td.label-col {
-            background-color: var(--light-bg);
-            font-weight: bold;
-            width: 30%;
-            color: var(--primary);
-        }
-        .declaracion-box {
-            background-color: var(--light-bg);
-            border-left: 3px solid var(--accent);
-            border-top: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            padding: 10px;
-            font-size: 11px;
-            line-height: 1.4;
-            margin-bottom: 15px;
-        }
-        .firma-final-box {
-            border: 1px solid var(--border);
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .firma-final-box img {
-            max-height: 110px;
-            display: block;
-            margin: 0 auto 5px;
-        }
-        .status-banner {
-            background-color: var(--success-bg);
-            border: 1px solid var(--success-border);
-            color: var(--success-text);
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .status-banner strong { display: block; font-size: 13px; }
-        .status-banner span { font-size: 11px; }
-        .footer-note {
-            font-size: 10px;
-            color: #666;
-            border-top: 1px solid #ddd;
-            padding-top: 8px;
-        }
-        .hidden { display: none !important; }
-        #qrcode img {
-            margin: 15px auto;
-            display: block;
-            border: 6px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-        @media print {
-            body { background: #fff; padding: 0; }
-            .container { box-shadow: none; border-top: none; padding: 0; }
-            .no-print { display: none !important; }
-        }
-    </style>
-</head>
-<body>
+<script>
+    var datosCapacitacion = {};
+    var currentUrl = "";
+    var logoBase64 = "";
 
-<div class="container">
-    <!-- VISTA 1: CONFIGURADOR -->
-    <div id="view-setup">
-        <div class="header">
-            <img id="setup-logo-preview" class="logo-preview hidden" src="" alt="Logo Empresa">
-            <h1>CONFIGURAR CAPACITACIÓN</h1>
-            <p>Completa los antecedentes para generar el enlace y código QR</p>
-        </div>
+    document.getElementById('setup-fecha').valueAsDate = new Date();
 
-        <div class="form-group">
-            <label>Logo de tu Empresa (Cargar desde galería del computador)</label>
-            <div class="logo-upload-box">
-                <input type="file" id="setup-logo-input" accept="image/*" onchange="procesarLogo(event)">
-                <small style="color: #666; display: block; margin-top: 4px;">Formatos PNG o JPG.</small>
-            </div>
-        </div>
+    function procesarLogo(event) {
+        var files = event.target.files;
+        if (!files || files.length === 0) return;
+        var file = files.item(0);
 
-        <div class="form-group">
-            <label>Nombre de tu Empresa (Encabezado)</label>
-            <input type="text" id="setup-empresa-titulo" placeholder="Ej: Seguridad 24 Horas">
-        </div>
-        <div class="form-group">
-            <label>Actividad / Documento</label>
-            <input type="text" id="setup-actividad" placeholder="Ej: Primeros Auxilios">
-        </div>
-        <div class="form-group">
-            <label>Temas a tratar</label>
-            <textarea id="setup-temas" rows="4" placeholder="1.- Cómo reaccionar frente a una emergencia&#10;2.- Números de emergencia"></textarea>
-        </div>
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" id="setup-fecha">
-            </div>
-            <div class="form-group">
-                <label>Relator</label>
-                <input type="text" id="setup-relator" placeholder="Ej: Camila Henríquez">
-            </div>
-        </div>
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                var canvasTemp = document.createElement('canvas');
+                var maxWidth = 100;
+                var scale = maxWidth / img.width;
+                canvasTemp.width = maxWidth;
+                canvasTemp.height = Math.round(img.height * scale);
 
-        <button type="button" class="btn" onclick="generarEnlaceQR()">Generar Enlace y Código QR</button>
+                var ctxTemp = canvasTemp.getContext('2d');
+                ctxTemp.drawImage(img, 0, 0, canvasTemp.width, canvasTemp.height);
 
-        <div id="qr-result" class="hidden" style="margin-top: 20px; text-align: center; border-top: 2px solid var(--primary); padding-top: 15px;">
-            <p style="font-size: 13px; font-weight: bold; color: var(--primary);">Comparte este código QR o enlace con tus trabajadores:</p>
-            <div id="qrcode"></div>
-            <input type="text" id="share-link" readonly style="text-align: center; background: #f8f9fa; margin-bottom: 10px;">
-            <button type="button" class="btn btn-dark" onclick="copiarEnlace()">Copiar Enlace</button>
-            <button type="button" class="btn" onclick="abrirVistaTrabajador()">Probar formulario como trabajador</button>
-        </div>
-    </div>
+                logoBase64 = canvasTemp.toDataURL('image/jpeg', 0.6);
+                var preview = document.getElementById('setup-logo-preview');
+                preview.src = logoBase64;
+                preview.classList.remove('hidden');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
-    <!-- VISTA 2: TRABAJADOR -->
-    <div id="view-worker" class="hidden">
-        <div class="header">
-            <img id="w-logo-img" class="logo-preview hidden" src="" alt="Logo Empresa">
-            <h1 id="w-titulo-empresa">EMPRESA</h1>
-            <p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p>
-        </div>
+    window.onload = function() {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('data')) {
+            try {
+                var decoded = decodeURIComponent(escape(atob(params.get('data'))));
+                datosCapacitacion = JSON.parse(decoded);
+                mostrarFormularioTrabajador();
+            } catch (e) {
+                alert("El enlace de capacitación no es válido.");
+            }
+        }
+    };
 
-        <div class="section-title">Antecedentes de la Actividad</div>
-        <table class="doc-table">
-            <tr><td class="label-col">Actividad / Documento</td><td id="w-actividad"></td></tr>
-            <tr><td class="label-col">Temas a tratar</td><td id="w-temas" style="white-space: pre-line;"></td></tr>
-            <tr><td class="label-col">Fecha</td><td id="w-fecha"></td></tr>
-            <tr><td class="label-col">Relator</td><td id="w-relator"></td></tr>
+    function generarEnlaceQR() {
+        datosCapacitacion = {
+            logo: logoBase64,
+            empTitulo: document.getElementById('setup-empresa-titulo').value || "REGISTRO CAPACITACIÓN",
+            actividad: document.getElementById('setup-actividad').value || "Capacitación",
+            temas: document.getElementById('setup-temas').value || "Sin detalles",
+            fecha: document.getElementById('setup-fecha').value,
+            relator: document.getElementById('setup-relator').value || "-"
+        };
+
+        var jsonStr = JSON.stringify(datosCapacitacion);
+        var encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+        var baseUrl = window.location.href.split('?').shift();
+        currentUrl = baseUrl + "?data=" + encoded;
+
+        document.getElementById('share-link').value = currentUrl;
+        
+        var servidor = "https://api.qrserver" + String.fromCharCode(46, 99) + "om/v1/create-qr-code/";
+        var qrUrl = servidor + "?size=220x220&color=141414&data=" + encodeURIComponent(currentUrl);
+        document.getElementById('qrcode').innerHTML = '<img src="' + qrUrl + '" alt="Código QR">';
+        document.getElementById('qr-result').classList.remove('hidden');
+    }
+
+    function copiarEnlace() {
+        var copyText = document.getElementById("share-link");
+        copyText.select();
+        document.execCommand("copy");
+        alert("Enlace copiado al portapapeles");
+    }
+
+    function abrirVistaTrabajador() {
+        window.location.href = currentUrl;
+    }
+
+    function mostrarFormularioTrabajador() {
+        document.getElementById('view-setup').classList.add('hidden');
+        document.getElementById('view-worker').classList.remove('hidden');
+
+        if (datosCapacitacion.logo) {
+            var wLogo = document.getElementById('w-logo-img');
+            wLogo.src = datosCapacitacion.logo;
+            wLogo.classList.remove('hidden');
+        }
+
+        document.getElementById('w-titulo-empresa').innerText = datosCapacitacion.empTitulo;
+        document.getElementById('w-actividad').innerText = datosCapacitacion.actividad;
+        document.getElementById('w-temas').innerText = datosCapacitacion.temas;
+        document.getElementById('w-fecha').innerText = datosCapacitacion.fecha;
+        document.getElementById('w-relator').innerText = datosCapacitacion.relator;
+
+        inicializarCanvas();
+    }
+
+    var canvas, ctx, dibujando = false, tieneFirma = false;
+
+    function inicializarCanvas() {
+        canvas = document.getElementById('sig-canvas');
+        ctx = canvas.getContext('2d');
+        
+        var rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#141414';
+
+        canvas.addEventListener('mousedown', function(e) { dibujando = true; tieneFirma = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+        canvas.addEventListener('mousemove', function(e) { if (dibujando) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } });
+        canvas.addEventListener('mouseup', function() { dibujando = false; });
+
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            var touch = e.touches.item(0);
+            var rect = canvas.getBoundingClientRect();
+            dibujando = true; tieneFirma = true;
+            ctx.beginPath();
+            ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        });
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (!dibujando) return;
+            var touch = e.touches.item(0);
+            var rect = canvas.getBoundingClientRect();
+            ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+            ctx.stroke();
+        });
+        canvas.addEventListener('touchend', function() { dibujando = false; });
+    }
+
+    function limpiarFirma() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        tieneFirma = false;
+    }
+
+    function finalizarRegistro() {
+        var nombre = document.getElementById('t-nombre').value.trim();
+        var rut = document.getElementById('t-rut').value.trim();
+        var cargo = document.getElementById('t-cargo').value.trim();
+        var instalacion = document.getElementById('t-instalacion').value.trim();
+        var contacto = document.getElementById('t-contacto').value.trim();
+        var sexo = document.getElementById('t-sexo').value;
+
+        if (!nombre || !rut || !cargo || !instalacion || !contacto) {
+            alert("Por favor completa todos los campos obligatorios.");
+            return;
+        }
+        if (!tieneFirma) {
+            alert("Por favor dibuja tu firma antes de continuar.");
+            return;
+        }
+
+        var ahora = new Date();
+        var fechaStr = ahora.toISOString().slice(0,10).replace(/-/g,'');
+        var rand = Math.floor(100000 + Math.random() * 900000);
+        var folio = "REGISTRO DIGITAL - SST-" + fechaStr + "-" + rand;
+
+        if (datosCapacitacion.logo) {
+            var rLogo = document.getElementById('r-logo-img');
+            rLogo.src = datosCapacitacion.logo;
+            rLogo.classList.remove('hidden');
+        }
+
+        document.getElementById('r-titulo-empresa').innerText = datosCapacitacion.empTitulo;
+        document.getElementById('r-folio').innerText = folio;
+        document.getElementById('r-actividad').innerText = datosCapacitacion.actividad;
+        document.getElementById('r-temas').innerText = datosCapacitacion.temas;
+        document.getElementById('r-fecha').innerText = datosCapacitacion.fecha;
+        document.getElementById('r-relator').innerText = datosCapacitacion.relator;
+
+        document.getElementById('r-nombre').innerText = nombre;
+        document.getElementById('r-rut').innerText = rut;
+        document.getElementById('r-cargo').innerText = cargo;
+        document.getElementById('r-sexo').innerText = sexo;
+        document.getElementById('r-instalacion').innerText = instalacion;
+        document.getElementById('r-contacto').innerText = contacto;
+
+        document.getElementById('r-firma-img').src = canvas.toDataURL();
+        document.getElementById('r-firma-nombre').innerText = nombre;
+
+        var horaStr = ahora.toLocaleString('es-CL');
+        document.getElementById('r-timestamp').innerHTML = "Registro generado: " + horaStr + "<br>Respaldo listo para guardar o compartir por WhatsApp.";
+
+        document.getElementById('view-worker').classList.add('hidden');
+        document.getElementById('view-receipt').classList.remove('hidden');
+    }
+
+    function descargarImagen() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
