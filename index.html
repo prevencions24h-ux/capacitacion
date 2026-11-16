@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registro de Capacitación</title>
+<script src="https://jsdelivr.net"></script>
 <style>
 :root{--p:#141414;--a:#d32f2f;--b:#d0d0d0;--bg:#f8f8f8}
 body{font-family:Arial,sans-serif;background:#e5e5e5;margin:0;padding:15px;color:#222}
@@ -30,7 +31,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 .ok{background:#e6f4ea;border:1px solid #34a853;color:#137333;text-align:center;padding:10px;border-radius:4px;margin-bottom:10px}
 .fn{font-size:10px;color:#666;border-top:1px solid #ddd;padding-top:8px}
 .hd{display:none!important}
-#qrcode img{margin:15px auto;display:block;border:6px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+#qrcode img{margin:15px auto;display:block;border:8px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 @media print{body{background:#fff;padding:0}.c{box-shadow:none;border:none;padding:0}.np{display:none!important}}
 </style>
 </head>
@@ -88,8 +89,8 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <script>
 var d={},u="",lg="",cv,cx,dr=false,tf=false;
 document.getElementById('f1').valueAsDate=new Date();
-function upL(e){var f=e.target.files.item(0);if(!f)return;var r=new FileReader();r.onload=function(ev){var im=new Image();im.onload=function(){var c=document.createElement('canvas'),w=75,s=w/im.width;c.width=w;c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);lg=c.toDataURL('image/jpeg',0.5);var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');};im.src=ev.target.result;};r.readAsDataURL(f);}
+function upL(e){var f=e.target.files.item(0);if(!f)return;var r=new FileReader();r.onload=function(ev){var im=new Image();im.onload=function(){var c=document.createElement('canvas'),w=60,s=w/im.width;c.width=w;c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);lg=c.toDataURL('image/jpeg',0.4);var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');};im.src=ev.target.result;};r.readAsDataURL(f);}
 window.onload=function(){var p=new URLSearchParams(window.location.search);if(p.has('d')){try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}catch(e){alert("Enlace inválido");}}};
-function genQR(){d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));u=window.location.href.split('?').shift()+"?d="+enc;document.getElementById('lnk').value=u;var qUrl="https://quickchart.io"+encodeURIComponent(u);document.getElementById('qrcode').innerHTML='<img src="'+qUrl+'" alt="QR">';document.getElementById('qrBox').classList.remove('hd');}
+function genQR(){d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));u=window.location.href.split('?').shift()+"?d="+enc;document.getElementById('lnk').value=u;var qr=qrcode(0,'L');qr.addData(u);qr.make();document.getElementById('qrcode').innerHTML=qr.createImgTag(4);document.getElementById('qrBox').classList.remove('hd');}
 function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
 function goW(){window.location.href=u;}
