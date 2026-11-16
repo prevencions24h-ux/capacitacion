@@ -121,6 +121,7 @@ function genQR(){
   var q=document.getElementById('qrcode');q.innerHTML="";
   new QRCode(q,{text:u,width:200,height:200,colorDark:"#141414",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.L});
   document.getElementById('qrBox').classList.remove('hd');
+  }function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}function goW(){window.location.href=u;}
   function shW(){
   document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');
   if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}
