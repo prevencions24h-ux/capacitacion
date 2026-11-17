@@ -164,7 +164,7 @@ function finR(){
   if(!tf){alert("Dibuja tu firma antes de continuar.");return;}
   var ah=new Date(),fs=ah.toISOString().slice(0,10).replace(/-/g,''),rd=Math.floor(100000+Math.random()*900000);
   if(d.l){var i=document.getElementById('lp3');i.src=d.l;i.classList.remove('hd');}
-  document.getElementById('re').innerText=d.e;document.getElementById('rf').innerText="REGISTRO DIGITAL - SST-"+fs+"-"+rd;
+  document.getElementById('re').innerText=d.e;document.getElementById('rf').innerText="REGISTRO DIGITAL";
   document.getElementById('ra').innerText=d.a;document.getElementById('rt').innerText=d.t;document.getElementById('rf2').innerText=d.f;document.getElementById('rr').innerText=d.r;
   document.getElementById('rn').innerText=n;document.getElementById('rrut').innerText=r;document.getElementById('rc').innerText=c;document.getElementById('rs').innerText=s;document.getElementById('ri').innerText=ins;document.getElementById('rx').innerText=x;
   document.getElementById('rfImg').src=cv.toDataURL();document.getElementById('rfNom').innerText=n;
