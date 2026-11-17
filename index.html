@@ -107,9 +107,9 @@ window.onload=function(){
   var p=new URLSearchParams(window.location.search);
   if(p.has('d')){
     try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}
-    catch(e){alert("Enlace inválido");}
-  
-function genQR(){
+    catch(e){alert("Enlace inválido");}}
+  };
+window.genQR=function genQR(){
   d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};
   var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));
   u=window.location.href.split('?').shift()+"?d="+enc;
@@ -117,7 +117,7 @@ function genQR(){
   var dom="https://api.qrserver"+String.fromCharCode(46,99)+"om/v1/create-qr-code/";
   document.getElementById('qrcode').innerHTML='<img src="'+dom+'?size=220x220&color=141414&data='+encodeURIComponent(u)+'" alt="QR">';
   document.getElementById('qrBox').classList.remove('hd');
-}
+};
 function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
 function goW(){window.location.href=u;}
 function shW(){
