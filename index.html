@@ -1,3 +1,4 @@
+$codigo = @'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -88,14 +89,36 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <script>
 var d={},u="",lg="",cv,cx,dr=false,tf=false;
 document.getElementById('f1').valueAsDate=new Date();
-function upL(e){var f=e.target.files.item(0);if(!f)return;var r=new FileReader();r.onload=function(ev){var im=new Image();im.onload=function(){var c=document.createElement('canvas'),w=75,s=w/im.width;c.width=w;c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);lg=c.toDataURL('image/jpeg',0.5);var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');};im.src=ev.target.result;};r.readAsDataURL(f);}
-window.onload=function(){var p=new URLSearchParams(window.location.search);if(p.has('d')){try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}catch(e){alert("Enlace inválido");}}};
-function genQR(){d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));u=window.location.href.split('?').shift()+"?d="+enc;document.getElementById('lnk').value=u;var qUrl="https://quickchart.io"+encodeURIComponent(u);document.getElementById('qrcode').innerHTML='<img src="'+qUrl+'" alt="QR">';document.getElementById('qrBox').classList.remove('hd');}
+function upL(e){
+  var f=e.target.files.item(0);if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var im=new Image();
+    im.onload=function(){
+      var c=document.createElement('canvas'),w=75,s=w/im.width;
+      c.width=w;c.height=Math.round(im.height*s);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      lg=c.toDataURL('image/jpeg',0.5);
+      var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');
+    };im.src=ev.target.result;
+  };r.readAsDataURL(f);
+}
+window.onload=function(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.has('d')){
+    try{d=JSON.parse(decodeURIComponent(escape(atob(p.get('d')))));shW();}
+    catch(e){alert("Enlace inválido");}
+  }
+};
+function genQR(){
+  d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};
+  var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));
+  u=window.location.href.split('?').shift()+"?d="+enc;
+  document.getElementById('lnk').value=u;
+  var qUrl="https://quickchart.io"+encodeURIComponent(u);
+  document.getElementById('qrcode').innerHTML='<img src="'+qUrl+'" alt="QR">';
+  document.getElementById('qrBox').classList.remove('hd');
+}
 function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
 function goW(){window.location.href=u;}
-  function shW(){document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}document.getElementById('we').innerText=d.e;document.getElementById('wa').innerText=d.a;document.getElementById('wt').innerText=d.t;document.getElementById('wf').innerText=d.f;document.getElementById('wr').innerText=d.r;cv=document.getElementById('cv');cx=cv.getContext('2d');var rc=cv.getBoundingClientRect();cv.width=rc.width;cv.height=rc.height;cx.lineWidth=2;cx.lineCap='round';cx.strokeStyle='#141414';cv.onmousedown=function(e){dr=true;tf=true;cx.beginPath();cx.moveTo(e.offsetX,e.offsetY);};cv.onmousemove=function(e){if(dr){cx.lineTo(e.offsetX,e.offsetY);cx.stroke();}};cv.onmouseup=function(){dr=false;};cv.ontouchstart=function(e){e.preventDefault();var t=e.touches.item(0),rc=cv.getBoundingClientRect();dr=true;tf=true;cx.beginPath();cx.moveTo(t.clientX-rc.left,t.clientY-rc.top);};cv.ontouchmove=function(e){e.preventDefault();if(!dr)return;var t=e.touches.item(0),rc=cv.getBoundingClientRect();cx.lineTo(t.clientX-rc.left,t.clientY-rc.top);cx.stroke();};cv.ontouchend=function(){dr=false;};}
-function clF(){cx.clearRect(0,0,cv.width,cv.height);tf=false;}
-function finR(){var n=document.getElementById('tn').value.trim(),r=document.getElementById('tr').value.trim(),c=document.getElementById('tc').value.trim(),ins=document.getElementById('ti').value.trim(),x=document.getElementById('tx').value.trim(),s=document.getElementById('ts').value;if(!n||!r||!c||!ins||!x){alert("Completa todos los campos obligatorios.");return;}if(!tf){alert("Dibuja tu firma antes de continuar.");return;}var ah=new Date(),fs=ah.toISOString().slice(0,10).replace(/-/g,''),rd=Math.floor(100000+Math.random()*900000);if(d.l){var i=document.getElementById('lp3');i.src=d.l;i.classList.remove('hd');}document.getElementById('re').innerText=d.e;document.getElementById('rf').innerText="REGISTRO DIGITAL - SST-"+fs+"-"+rd;document.getElementById('ra').innerText=d.a;document.getElementById('rt').innerText=d.t;document.getElementById('rf2').innerText=d.f;document.getElementById('rr').innerText=d.r;document.getElementById('rn').innerText=n;document.getElementById('rrut').innerText=r;document.getElementById('rc').innerText=c;document.getElementById('rs').innerText=s;document.getElementById('ri').innerText=ins;document.getElementById('rx').innerText=x;document.getElementById('rfImg').src=cv.toDataURL();document.getElementById('rfNom').innerText=n;document.getElementById('rts').innerHTML="Registro generado: "+ah.toLocaleString('es-CL')+"<br>Respaldo listo para guardar o compartir por WhatsApp.";document.getElementById('v2').classList.add('hd');document.getElementById('v3').classList.remove('hd');}
-</script>
-</body>
-</html>
+function shW(){
