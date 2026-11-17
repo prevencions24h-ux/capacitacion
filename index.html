@@ -123,6 +123,8 @@ function cpL(){var x=document.getElementById("lnk");x.select();document.execComm
 function goW(){window.location.href=u;}
   function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
 function shW(){
+  function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
+  function wspOk(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, completé mi capacitación de "+d.a+". Nombre: "+document.getElementById('rn').innerText+" | RUT: "+document.getElementById('rrut').innerText+" | Instalación: "+document.getElementById('ri').innerText+" | Folio: "+document.getElementById('rf').innerText;window.open(w+encodeURIComponent(txt),"_blank");}
   document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');
   if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}
   document.getElementById('we').innerText=d.e;document.getElementById('wa').innerText=d.a;
