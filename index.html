@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,8 +10,9 @@
 :root{--p:#141414;--a:#d32f2f;--b:#d0d0d0;--bg:#f8f8f8}
 body{font-family:Arial,sans-serif;background:#e5e5e5;margin:0;padding:15px;color:#222}
 .c{max-width:700px;margin:auto;background:#fff;padding:25px;border-radius:8px;border-top:6px solid var(--a);box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.h{text-align:center;border-bottom:2px solid var(--p);padding-bottom:12px;margin-bottom:15px}
-.lp{max-height:75px;max-width:220px;margin:0 auto 8px;display:block;object-fit:contain}
+.h{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:2px solid var(--p);padding-bottom:12px;margin-bottom:15px;text-align:center}
+.h > div{flex:1}
+.lp{max-height:95px;max-width:260px;margin:0;display:block;object-fit:contain}
 .h h1{margin:0;font-size:20px;color:var(--p)}.h p{margin:5px 0 0;font-size:13px;font-weight:bold;color:var(--a)}
 .fb{background:var(--p);border-left:5px solid var(--a);color:#fff;padding:7px 12px;font-size:12px;font-weight:bold;margin-bottom:15px;border-radius:3px}
 .st{font-size:13px;font-weight:bold;color:var(--p);border-bottom:2px solid var(--a);padding-bottom:4px;margin:18px 0 10px;text-transform:uppercase}
@@ -39,7 +40,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <body>
 <div class="c">
 <div id="v1">
-<div class="h"><img id="lp1" class="lp hd" src=""><h1>CONFIGURAR CAPACITACIÓN</h1><p>Completa los antecedentes para generar el enlace y código QR</p></div>
+<div class="h"><img id="lp1" class="lp hd" src=""><div><h1>CONFIGURAR CAPACITACIÓN</h1><p>Completa los antecedentes para generar el enlace y código QR</p></div></div>
 <div class="fg"><label>Logo de tu Empresa (Cargar desde galería)</label><div class="ub"><input type="file" accept="image/*" onchange="upL(event)"><small style="color:#666;display:block;margin-top:4px">Formatos PNG o JPG.</small></div></div>
 <div class="fg"><label>Nombre de tu Empresa (Encabezado)</label><input type="text" id="e1" placeholder="Ej: Seguridad 24 Horas"></div>
 <div class="fg"><label>Actividad / Documento</label><input type="text" id="a1" placeholder="Ej: Primeros Auxilios"></div>
@@ -57,7 +58,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 </div>
 </div>
 <div id="v2" class="hd">
-<div class="h"><img id="lp2" class="lp hd" src=""><h1 id="we">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
+<div class="h"><img id="lp2" class="lp hd" src=""><div><h1 id="we">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div></div>
 <div class="st">Antecedentes de la Actividad</div>
 <table><tr><td class="lc">Actividad / Documento</td><td id="wa"></td></tr><tr><td class="lc">Temas a tratar</td><td id="wt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="wf"></td></tr><tr><td class="lc">Relator</td><td id="wr"></td></tr><tr><td class="lc">Cargo</td><td id="wcr"></td></tr></table>
 <div class="fg"><label>Nombre Completo *</label><input type="text" id="tn" placeholder="Ej: Juan Pérez González"></div>
@@ -72,7 +73,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 </div>
 <div id="v3" class="hd">
 <div id="docFinal" style="background:#fff;padding:15px;border-top:5px solid var(--a)">
-<div class="h"><img id="lp3" class="lp hd" src=""><h1 id="re">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
+<div class="h"><img id="lp3" class="lp hd" src=""><div><h1 id="re">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div></div>
 <div class="fb" id="rf">REGISTRO DIGITAL - SST-000000</div>
 <div class="st">Antecedentes</div>
 <table><tr><td class="lc">Actividad / Documento</td><td id="ra"></td></tr><tr><td class="lc">Temas a tratar</td><td id="rt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="rf2"></td></tr><tr><td class="lc">Relator</td><td id="rr"></td></tr><tr><td class="lc">Cargo</td><td id="rcr"></td></tr></table>
@@ -98,10 +99,10 @@ function upL(e){
   r.onload=function(ev){
     var im=new Image();
     im.onload=function(){
-      var c=document.createElement('canvas'),w=75,s=w/im.width;
+      var c=document.createElement('canvas'),w=220,s=w/im.width;
       c.width=w;c.height=Math.round(im.height*s);
       c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-      lg=c.toDataURL('image/jpeg',0.5);
+      lg=c.toDataURL('image/jpeg',0.8);
       var p=document.getElementById('lp1');p.src=lg;p.classList.remove('hd');
     };im.src=ev.target.result;
   };r.readAsDataURL(f);
