@@ -44,7 +44,8 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <div class="fg"><label>Nombre de tu Empresa (Encabezado)</label><input type="text" id="e1" placeholder="Ej: Seguridad 24 Horas"></div>
 <div class="fg"><label>Actividad / Documento</label><input type="text" id="a1" placeholder="Ej: Primeros Auxilios"></div>
 <div class="fg"><label>Temas a tratar</label><textarea id="t1" rows="4" placeholder="1.- Lineamientos&#10;2.- Medidas preventivas"></textarea></div>
-<div class="g2"><div class="fg"><label>Fecha</label><input type="date" id="f1"></div><div class="fg"><label>Relator</label><input type="text" id="r1" placeholder="Ej: Camila Henríquez"></div></div>
+<div class="fg"><label>Fecha</label><input type="date" id="f1"></div>
+<div class="g2"><div class="fg"><label>Relator</label><input type="text" id="r1" placeholder="Ej: Camila Henríquez"></div><div class="fg"><label>Cargo</label><input type="text" id="cr1" placeholder="Ej: Prevencionista de Riesgos"></div></div>
 <button type="button" class="btn" onclick="genQR()">Generar Enlace y Código QR</button>
 <div id="qrBox" class="hd" style="margin-top:20px;text-align:center;border-top:2px solid var(--p);padding-top:15px">
 <p style="font-size:13px;font-weight:bold">Comparte este código QR o enlace con tus trabajadores:</p>
@@ -58,8 +59,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <div id="v2" class="hd">
 <div class="h"><img id="lp2" class="lp hd" src=""><h1 id="we">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
 <div class="st">Antecedentes de la Actividad</div>
-<table><tr><td class="lc">Actividad / Documento</td><td id="wa"></td></tr><tr><td class="lc">Temas a tratar</td><td id="wt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="wf"></td></tr><tr><td class="lc">Relator</td><td id="wr"></td></tr></table>
-<div class="st">Datos del Trabajador</div>
+<table><tr><td class="lc">Actividad / Documento</td><td id="wa"></td></tr><tr><td class="lc">Temas a tratar</td><td id="wt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="wf"></td></tr><tr><td class="lc">Relator</td><td id="wr"></td></tr><tr><td class="lc">Cargo</td><td id="wcr"></td></tr></table>
 <div class="fg"><label>Nombre Completo *</label><input type="text" id="tn" placeholder="Ej: Juan Pérez González"></div>
 <div class="g2"><div class="fg"><label>RUT *</label><input type="text" id="tr" placeholder="Ej: 18.213.351-9"></div><div class="fg"><label>Sexo</label><select id="ts"><option>Hombre</option><option>Mujer</option><option>Otro</option></select></div></div>
 <div class="g2"><div class="fg"><label>Cargo *</label><input type="text" id="tc" placeholder="Ej: Guardia de Seguridad"></div><div class="fg"><label>Instalación *</label><input type="text" id="ti" placeholder="Ej: Instalación Central"></div></div>
@@ -75,7 +75,7 @@ td.lc{background:var(--bg);font-weight:bold;width:30%;color:var(--p)}
 <div class="h"><img id="lp3" class="lp hd" src=""><h1 id="re">EMPRESA</h1><p>REGISTRO DE DIFUSIÓN Y TOMA DE CONOCIMIENTO</p></div>
 <div class="fb" id="rf">REGISTRO DIGITAL - SST-000000</div>
 <div class="st">Antecedentes</div>
-<table><tr><td class="lc">Actividad / Documento</td><td id="ra"></td></tr><tr><td class="lc">Temas a tratar</td><td id="rt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="rf2"></td></tr><tr><td class="lc">Relator</td><td id="rr"></td></tr></table>
+<table><tr><td class="lc">Actividad / Documento</td><td id="ra"></td></tr><tr><td class="lc">Temas a tratar</td><td id="rt" style="white-space:pre-line"></td></tr><tr><td class="lc">Fecha</td><td id="rf2"></td></tr><tr><td class="lc">Relator</td><td id="rr"></td></tr><tr><td class="lc">Cargo</td><td id="rcr"></td></tr></table>
 <div class="st">Datos del Trabajador</div>
 <table><tr><td class="lc" style="width:18%">Nombre</td><td id="rn" style="width:42%;font-weight:bold"></td><td class="lc" style="width:13%">RUT</td><td id="rrut" style="width:27%"></td></tr><tr><td class="lc">Cargo</td><td id="rc"></td><td class="lc">Sexo</td><td id="rs"></td></tr><tr><td class="lc">Instalación</td><td id="ri"></td><td class="lc">Contacto</td><td id="rx"></td></tr></table>
 <div class="st">Declaración</div>
@@ -113,7 +113,7 @@ window.onload=function(){
     catch(e){alert("Enlace inválido");}}
   };
 window.genQR=function genQR(){
-  d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-"};
+  d={l:lg,e:document.getElementById('e1').value||"CAPACITACIÓN",a:document.getElementById('a1').value||"Charla",t:document.getElementById('t1').value||"-",f:document.getElementById('f1').value,r:document.getElementById('r1').value||"-",cr:document.getElementById('cr1').value||"-"};
   var enc=btoa(unescape(encodeURIComponent(JSON.stringify(d))));
   u=window.location.href.split('?').shift()+"?d="+enc;
   document.getElementById('lnk').value=u;
@@ -146,7 +146,7 @@ function shW(){
   document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');
   if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}
   document.getElementById('we').innerText=d.e;document.getElementById('wa').innerText=d.a;
-  document.getElementById('wt').innerText=d.t;document.getElementById('wf').innerText=d.f;document.getElementById('wr').innerText=d.r;
+  document.getElementById('wt').innerText=d.t;document.getElementById('wf').innerText=d.f;document.getElementById('wr').innerText=d.r;document.getElementById('wcr').innerText=d.cr||"-";
   cv=document.getElementById('cv');cx=cv.getContext('2d');
   var rc=cv.getBoundingClientRect();cv.width=rc.width;cv.height=rc.height;
   cx.lineWidth=2;cx.lineCap='round';cx.strokeStyle='#141414';
@@ -165,7 +165,7 @@ function finR(){
   var ah=new Date(),fs=ah.toISOString().slice(0,10).replace(/-/g,''),rd=Math.floor(100000+Math.random()*900000);
   if(d.l){var i=document.getElementById('lp3');i.src=d.l;i.classList.remove('hd');}
   document.getElementById('re').innerText=d.e;document.getElementById('rf').innerText="REGISTRO DIGITAL";
-  document.getElementById('ra').innerText=d.a;document.getElementById('rt').innerText=d.t;document.getElementById('rf2').innerText=d.f;document.getElementById('rr').innerText=d.r;
+  document.getElementById('ra').innerText=d.a;document.getElementById('rt').innerText=d.t;document.getElementById('rf2').innerText=d.f;document.getElementById('rr').innerText=d.r;document.getElementById('rcr').innerText=d.cr||"-";
   document.getElementById('rn').innerText=n;document.getElementById('rrut').innerText=r;document.getElementById('rc').innerText=c;document.getElementById('rs').innerText=s;document.getElementById('ri').innerText=ins;document.getElementById('rx').innerText=x;
   document.getElementById('rfImg').src=cv.toDataURL();document.getElementById('rfNom').innerText=n;
   document.getElementById('rts').innerHTML="Registro generado: "+ah.toLocaleString('es-CL')+"<br>Respaldo listo para guardar o compartir por WhatsApp.";
