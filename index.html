@@ -125,7 +125,11 @@ function cpL(){var x=document.getElementById("lnk");x.select();document.execComm
 function goW(){window.location.href=u;}
 function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
 function wspOk(){
-  html2canvas(document.getElementById('docFinal'),{scale:2}).then(function(c){
+  var el=document.getElementById('docFinal');
+  var anchoOrig=el.style.width;
+  el.style.width="750px";
+  html2canvas(el,{scale:2,windowWidth:800}).then(function(c){
+    el.style.width=anchoOrig;
     c.toBlob(function(b){
       var f=new File([b],"Comprobante_"+document.getElementById('rrut').innerText+".png",{type:"image/png"});
       if(navigator.canShare && navigator.canShare({files:[f]})){
