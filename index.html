@@ -123,12 +123,22 @@ window.genQR=function genQR(){
 };
 function cpL(){var x=document.getElementById("lnk");x.select();document.execCommand("copy");alert("Enlace copiado");}
 function goW(){window.location.href=u;}
-  function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
-  function wspOk(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, completé mi capacitación de "+d.a+". Nombre: "+document.getElementById('rn').innerText+" | RUT: "+document.getElementById('rrut').innerText+" | Instalación: "+document.getElementById('ri').innerText+" | Folio: "+document.getElementById('rf').innerText;window.open(w+encodeURIComponent(txt),"_blank");}
-  function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
+function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
+function wspOk(){
+  html2canvas(document.getElementById('docFinal'),{scale:2}).then(function(c){
+    c.toBlob(function(b){
+      var f=new File([b],"Comprobante_"+document.getElementById('rrut').innerText+".png",{type:"image/png"});
+      if(navigator.canShare && navigator.canShare({files:[f]})){
+        navigator.share({files:[f],title:"Comprobante Capacitación",text:"Comprobante firmado de "+document.getElementById('rn').innerText});
+      } else {
+        var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f.name;a.click();
+        var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";
+        window.open(w+encodeURIComponent("Hola, adjunto mi comprobante de capacitación firmado ("+document.getElementById('rn').innerText+")."),"_blank");
+      }
+    });
+  });
+}
 function shW(){
-  function wsp(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, ingresa aquí para firmar tu registro de capacitación ("+d.a+"): "+u;window.open(w+encodeURIComponent(txt),"_blank");}
-  function wspOk(){var w="https://wa"+String.fromCharCode(46,109)+"e/?text=";var txt="Hola, completé mi capacitación de "+d.a+". Nombre: "+document.getElementById('rn').innerText+" | RUT: "+document.getElementById('rrut').innerText+" | Instalación: "+document.getElementById('ri').innerText+" | Folio: "+document.getElementById('rf').innerText;window.open(w+encodeURIComponent(txt),"_blank");}
   document.getElementById('v1').classList.add('hd');document.getElementById('v2').classList.remove('hd');
   if(d.l){var i=document.getElementById('lp2');i.src=d.l;i.classList.remove('hd');}
   document.getElementById('we').innerText=d.e;document.getElementById('wa').innerText=d.a;
